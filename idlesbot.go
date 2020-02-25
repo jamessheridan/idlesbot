@@ -34,9 +34,7 @@ type Credentials struct {
 // everything needed to authenticate and return a pointer to a twitter Client
 // or an error
 func getClient(creds *Credentials) (*twitter.Client, error) {
-	// Pass in your consumer key (API Key) and your Consumer Secret (API Secret)
 	config := oauth1.NewConfig(creds.ConsumerKey, creds.ConsumerSecret)
-	// Pass in your Access Token and your Access Token Secret
 	token := oauth1.NewToken(creds.AccessToken, creds.AccessTokenSecret)
 
 	httpClient := config.Client(oauth1.NoContext, token)
@@ -48,8 +46,6 @@ func getClient(creds *Credentials) (*twitter.Client, error) {
 		IncludeEmail: twitter.Bool(true),
 	}
 
-	// we can retrieve the user and verify if the credentials
-	// we have used successfully allow us to log in!
 	user, _, err := client.Accounts.VerifyCredentials(verifyParams)
 	if err != nil {
 		return nil, err
@@ -59,6 +55,7 @@ func getClient(creds *Credentials) (*twitter.Client, error) {
 	return client, nil
 }
 
+// getLyric picks a line from the given file at random and returns it
 func getLyric() string {
 	rand.Seed(time.Now().UnixNano())
 
@@ -83,6 +80,7 @@ func main() {
 		ConsumerSecret:    os.Getenv("API_SECRET_KEY"),
 	}
 
+	// We roll a dice here and if the result is a 0, we proceed. For any other number, we exit.
 	rand.Seed(time.Now().UnixNano())
 	dice := rand.Intn(TweetOdds)
 	if dice != 0 {
@@ -90,6 +88,7 @@ func main() {
 		os.Exit(0)
 	}
 
+	// We rolled a 0, so let's tweet.
 	client, err := getClient(&creds)
 	if err != nil {
 		log.Println("Error getting Twitter Client")
