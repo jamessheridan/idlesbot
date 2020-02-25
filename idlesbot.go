@@ -104,4 +104,5 @@ func main() {
 	}
 	log.Printf("%+v\n", resp)
 	log.Printf("%+v\n", tweet)
+	os.Exit(0)
 }
