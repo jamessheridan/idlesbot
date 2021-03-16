@@ -16,7 +16,7 @@ import (
 
 // TweetOdds represents how often the bot will run and Tweet a lyric. Setting this to 7, and running the bot every hour
 // means that the bot has a 1 in 8 chance (0 thru 7 are eight numbers) of running that hour.
-var TweetOdds = 7
+var TweetOdds = 10
 
 // Credentials stores all of our access/consumer tokens
 // and secret keys needed for authentication against
